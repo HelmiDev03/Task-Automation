@@ -10,10 +10,15 @@ from webdriver_manager.chrome import ChromeDriverManager
 # Initialize the WebDriver
 
 index=0
+options = webdriver.ChromeOptions()
+# Add any options you need (e.g., headless mode for servers)
+options.add_argument('--headless')  # Run Chrome in headless mode
+options.add_argument('--no-sandbox')  # Bypass OS security model
+options.add_argument('--disable-dev-shm-usage')  # Overcome limited resource problems
 while True:
     try:
         print (f"iteration {index+1}")    
-        driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+        driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=options)
         wait = WebDriverWait(driver, 30)  # Increased timeout to 30 seconds
         # Open the initial URL
         driver.get('https://learn.microsoft.com/training/paths/security-copilot-and-ai/?wt.mc_id=studentamb_394481')
